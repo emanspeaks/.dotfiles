@@ -1,0 +1,33 @@
+{
+  "embeddingProvider": "custom",
+  "customProvider": {
+    "baseUrl": "http://192.168.2.44:5900/v1",
+    "model": "opencode:qwen3-embed-0.6b",
+    "dimensions": 1024
+  },
+  "reranker": {
+    "enabled": true,
+    "baseUrl": "http://192.168.2.44:5900/v1",
+    "model": "opencode:qwen3-rerank-0.6b"
+  },
+  "debug": {
+    "enabled": true,
+    "metrics": true,
+    "logLevel": "debug"
+  },
+  "indexing": {
+    "autoIndex": true,
+    "maxFilesPerDirectory": 1000,
+	"skipAutoIndexOnLoad": true
+  },
+  "database": {
+    "engine": "pgvector",
+    "pgvector": {
+      "host": "192.168.2.52",
+      "port": 5432,
+      "database": "vectordb",
+      "user": "postgres",
+      "password": "postgres"
+    }
+  }
+}

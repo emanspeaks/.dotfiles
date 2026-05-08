@@ -1,0 +1,11 @@
+{
+  // "theme": "vibedark2",
+  // "default_width": 515,
+  // "default_height": 450,
+  "clocks_file": "${base_path}/randy_clocks.jsonc",
+  // "always_on_top": true,
+  // "always_on_top_opacity": 0.5,
+  "json_schema": "file:///C:/scratch/git/pycountdown/pycountdown/assets/clocks.schema.jsonc",
+  //"mute_alerts": true
+  "alert_volume_pct": 1000
+}

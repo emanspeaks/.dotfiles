@@ -1,0 +1,48 @@
+{
+  "plugin": [
+    //"oc-tps@latest"
+	[
+	  "opencode-model-stats@0.2.4", 
+	  //"file://C:/scratch/git/opencode-model-stats", 
+	  { 
+	    //"debug": true 
+		//"tuiDebug": "tui_log.txt"
+	  }
+	]
+  ],
+  "$schema": "https://opencode.ai/tui.json",
+  //"keybinds": {
+  // "command_list": "ctrl+shift+o",
+  // "app_exit": "none",
+  // "input_submit": "kpenter",
+  // "input_newline": "shift+return,ctrl+return,alt+return,ctrl+j",
+  // "session.first": "ctrl+g,home",
+  // "session.last": "ctrl+alt+g,end",
+  //}
+  "keymap": {
+    "leader": "ctrl+w",
+	"sections": {
+      "global": {
+		"command.palette.show": "ctrl+shift+o",
+		"app.exit": false,
+	  },
+	  "session": {
+        "session.first": {
+			"key": "ctrl+g",
+			"preventDefault": true,
+		}
+        "session.last": {
+			"key": "ctrl+alt+g",
+			"preventDefault": true,
+		}
+	  },
+	  "input": {
+        "input.submit": "kpenter",
+        "input.newline": [
+		  "shift+return",
+		  "alt+return",
+	    ],
+	  },
+	}
+  }
+}

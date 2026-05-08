@@ -1,0 +1,3 @@
+[submodule "secrets"]
+	path = secrets
+	url = ssh://git@git.syme.biz:2222/configs/secrets.git

@@ -1,0 +1,66 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "disabled_providers": [],
+  "provider": {
+    "moss": {
+      "name": "moss",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://192.168.2.44:5900/v1"
+      },
+    },
+  },
+  "plugin": [
+    [
+      "opencode-models-discovery-proxy@1.0.0",
+	  //"file://C:/scratch/git/opencode-models-discovery-proxy",
+      {
+        "provider": "moss"
+      }
+    ],
+    //"opencode-codebase-index",
+	"file://C:/scratch/git/opencode-codebase-index",
+	[
+	  "opencode-model-stats@0.2.4", 
+	  //"file://C:/scratch/git/opencode-model-stats", 
+	  { 
+	    //"debug": true 
+		//"tuiDebug": "tui_log.txt"
+	  }
+	]
+  ],
+  "agent": {
+    "plan": {
+      //"model": "moss/opencode:nemotron",
+      "model": "moss/opencode:qwen",
+      "description": "High-level planning and architecture",
+    },
+    "build": {
+      "model": "moss/opencode:qwen3.6-35b-a3b",
+      "description": "Implementation and coding agent",
+      "permission": {
+		"*": "allow",
+        "bash": {
+		  "rm": "ask",
+		  "git commit": "deny",
+		  "git push": "deny",
+		  "*": "allow"
+		}
+      }
+    },
+	"general": {
+	  "mode": "subagent",
+	  "model": "moss/mistral"
+	  //"model": "moss/llama3.2:3b"
+	}
+  },
+  "default_agent": "build", // Starts every session in planning mode
+  "command": {
+    "execute": {
+      "agent": "build",
+      "template": "Based on the previous plan, please implement the changes."
+    }
+  },
+  "shell": "bash",
+
+}
