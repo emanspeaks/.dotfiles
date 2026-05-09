@@ -6,9 +6,11 @@ singlepkg=
 
 handle_positional_args() {
   singlepkg=$1
+  shift
 }
 
 parse_args "$@"
+shift $#
 
 success "Pushing dotfiles packages..."
 cd "$DOTFILES"

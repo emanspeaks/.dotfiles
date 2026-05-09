@@ -59,3 +59,7 @@ strip_left_path_part() {
 strip_trailing_slash() {
   echo "${1%/}"
 }
+
+strip_leftmost_path_part() {
+  echo "${1#*/}"
+}

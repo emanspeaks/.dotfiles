@@ -6,9 +6,12 @@ machine=
 
 handle_positional_args() {
   machine=$1
+  shift
 }
 
 parse_args "$@"
+shift $#
+
 machine=${machine:-$(get_machine_name)}
 [ -n "$machine" ] || die "No machine name provided. Usage: $0 <machine-name>"
 

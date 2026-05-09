@@ -2,20 +2,29 @@
 DOTFILES=$(dot-whereami)
 . "$DOTFILES/utils/common.sh"
 
-parse_args "$@"
+droppkg=
 
-droppkg=$1
+handle_positional_args() {
+  droppkg=$1
+  shift
+}
+
+parse_args "$@"
+shift $#
+
 [ -n "$droppkg" ] || die no package provided
 info "Preparing to drop package $droppkg from $DOTMACHFILE"
 
 # check if it's already in the file
 
-if grep -qx "#$droppkg" "$DOTMACHFILE"; then
-  warn "Package $droppkg already dropped"
+if grep -qx "//$droppkg" "$DOTMACHFILE"; then
+  warn "Package $droppkg already marked for drop"
+elif ! grep -qx "$droppkg" "$DOTMACHFILE"; then
+  error "Package $droppkg not found in $DOTMACHFILE. Nothing to drop."
+  exit 1
 else
-  die NOT YET IMPLEMENTED, DO NOT USE
-
-  echo "#$droppkg" >> "$DOTMACHFILE"
-  success "Package $droppkg dropped from $DOTMACHFILE. Running pull for package..."
-  "$DOTFILES/pull.sh" "#$droppkg"
+  add_pkg_drop_marker "$droppkg"
 fi
+
+success "Package $droppkg marked for drop from $DOTMACHFILE. Running pull for package..."
+"$DOTFILES/pull.sh" "//$droppkg"

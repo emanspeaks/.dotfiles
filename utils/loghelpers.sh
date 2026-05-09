@@ -1,14 +1,16 @@
-export DEBUG=0
-export TRACE=0
-DEBUGSTYLE=$(stylecombo $BLACK $DKYELLOWBG $BOLD)
-OLDCWD=$(pwd)
+export DEBUG=${DEBUG:-0}
+export TRACE=${TRACE:-0}
+DEBUGSTYLE=$(stylecombo $LTGRAY $DKGREENBG $BOLD)
+BREAKSTYLE=$(stylecombo $WHITE $DKREDBG $BLINK)
+DROPSTYLE=$(stylecombo $RED $DKYELLOWBG)
+OLDCWD=${OLDCWD:-"$(pwd)"}
 
 breakpoint() {
   if [ "$DEBUG" -gt 0 ]; then
     local bashsrc="$1"  # caller's source file
     local linenum="$2"  # caller's line number
     local DUMMY  # used to pause execution until user presses Enter
-    echo -ne "${DEBUGSTYLE}[$(strip_dotfiles_from_path "$bashsrc"):$linenum] BREAKPOINT ${NOANSI}"
+    echo -ne "${BREAKSTYLE}[$(strip_dotfiles_from_path "$bashsrc"):$linenum] BREAKPOINT ${NOANSI}"
     read -p " (Press Enter to continue...)" DUMMY
   fi
 }
@@ -44,6 +46,10 @@ success() {
 
 pkg_info() {
   echo -e "${BLUE}$@${NOANSI}"
+}
+
+drop_info() {
+  echo -e "${DROPSTYLE}$@${NOANSI}"
 }
 
 info() {

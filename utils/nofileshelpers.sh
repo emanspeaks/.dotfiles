@@ -19,13 +19,12 @@ noln_for_pkgdir_home_root_userprofile() {
   root_noln_ref=()
   userprofile_noln_ref=()
 
-
   local pkgdir_nolnfile="$pkgdir/noln"
   local pkgdir_noln=()
 
   if [ -f "$pkgdir_nolnfile" ]; then
     debug "$BASH_SOURCE" "$LINENO" found noln file "$pkgdir_nolnfile"
-    readarray -t pkgdir_noln < "$pkgdir_nolnfile"
+    parse_pattern_file_linesref "$pkgdir_nolnfile" pkgdir_noln
     filter_noln home_noln_ref "home" "${pkgdir_noln[@]}"
     filter_noln root_noln_ref "root" "${pkgdir_noln[@]}"
     filter_noln userprofile_noln_ref "userprofile" "${pkgdir_noln[@]}"
@@ -65,7 +64,7 @@ get_pkgdir_norecurse() {
     local norecursefile="$pkgdir/norecurse"
     if [ -f "$norecursefile" ]; then
       debug "$BASH_SOURCE" "$LINENO" found norecurse file "$norecursefile"
-      readarray -t norecurse_array_ref < "$norecursefile"
+      parse_pattern_file_linesref "$norecursefile" norecurse_array_ref
     fi
   fi
   echo "${norecurse_array_ref[@]}"
@@ -74,6 +73,31 @@ get_pkgdir_norecurse() {
 should_skip_recurse_pkgdir_path() {
   local pkgdir="$1"
   local path=$(strip_trailing_slash "$2")
-  get_pkgdir_norecurse "$pkgdir" | tr ' ' '\n' | grep -x "$path/" > /dev/null
-  return $?
+  array_contains "$path/" "$(get_pkgdir_norecurse "$pkgdir")"
+}
+
+filter_noln_for_path_nolnref() {
+  local path="$1"
+  # declare -n newnoln_ref="$2"
+  local pkgdir=$(extract_pkgdir_from_path "$path")  # /home/user/.dotfiles/pkgs/bar
+  local nolnrelpath=$(strip_pkgdir_from_path "$path")  # home/.config
+  debug "$BASH_SOURCE" "$LINENO" pkgdir="$pkgdir" nolnrelpath="$nolnrelpath"
+  local home_noln=()
+  local root_noln=()
+  local userprofile_noln=()
+  noln_for_pkgdir_home_root_userprofile "$pkgdir" home_noln root_noln userprofile_noln
+  case "$path" in
+    "$pkgdir/home/"*)
+      filter_noln $2 "${nolnrelpath#home/}" "${home_noln[@]}"
+      ;;
+    "$pkgdir/root/"*)
+      filter_noln $2 "${nolnrelpath#root/}" "${root_noln[@]}"
+      ;;
+    "$pkgdir/userprofile/"*)
+      filter_noln $2 "${nolnrelpath#userprofile/}" "${userprofile_noln[@]}"
+      ;;
+    *)
+      die "Link target $path is not in home, root, or userprofile"
+      ;;
+  esac
 }

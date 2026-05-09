@@ -1,5 +1,4 @@
 pull_src_dest_skiplevel_noln() {
-  # calltrace "pull_src_dest_skiplevel_noln: src=$1 dest=$2 skiplevel=$3 noln=(${@:4})"
   local src="$1"
   local dest="$2"
   local skiplevel="$3"
@@ -101,13 +100,12 @@ pull_src_dest_skiplevel_noln() {
           continue
         fi
       fi
-      # if we got here, we need to merge, or we need to skip but still need descend the tree.
+      # if we got here, we need to merge, or we need to skip but still need to descend the tree.
       # either the dir exists or we aren't supposed to make a link
       local pkgdir=$(extract_pkgdir_from_path "$srcp")
       local prel=$(strip_pkgdir_from_path "$srcp")
       if should_skip_recurse_pkgdir_path "$pkgdir" "$prel"; then
         debug "$BASH_SOURCE" "$LINENO" "${INVERT}Path $prel is in pkgdir norecurse${NOINVERT}"
-        debug "${INVERT}Path $prel is in pkgdir norecurse${NOINVERT}"
         continue
       else
         # let's just mkdir -p to be safe in case we need it later.

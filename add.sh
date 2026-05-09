@@ -2,9 +2,16 @@
 DOTFILES=$(dot-whereami)
 . "$DOTFILES/utils/common.sh"
 
-parse_args "$@"
+newpkg=
 
-newpkg=$1
+handle_positional_args() {
+  newpkg=$1
+  shift
+}
+
+parse_args "$@"
+shift $#
+
 [ -n "$newpkg" ] || die no package provided
 info "Preparing to add package $newpkg to $DOTMACHFILE"
 
