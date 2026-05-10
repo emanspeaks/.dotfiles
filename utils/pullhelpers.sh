@@ -38,7 +38,7 @@ pull_src_dest_skiplevel_noln() {
     # is it a file?  if so, try to link it
     if [[ -f "$srcp" ]] && [[ $skiplevel -le 0 ]]; then
       debug "$BASH_SOURCE" "$LINENO" "Linking file $destp to $srcp"
-      safe_link "$srcp" "$destp"
+      try_set_link "$srcp" "$destp"
       continue
     fi
 
