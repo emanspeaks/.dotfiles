@@ -58,7 +58,7 @@ pull_src_dest_skiplevel_noln() {
           debug "$BASH_SOURCE" "$LINENO" "destp is ln $destp -> $linktgt"
           if [[ "$linktgt" == "$DOTPKGDIR/"* ]]; then
             # is it already the link we want?  if so, skip it.
-            is_link_match "$srcp" "$destp"
+            is_link_match "$srcp" "$destp" 1  # 1=let is_link_match die
             case $? in
               0)
                 debug "$BASH_SOURCE" "$LINENO" "link already exists, skipping"
@@ -75,7 +75,7 @@ pull_src_dest_skiplevel_noln() {
                 die "Link does not exist (but we shouldn't be here since we already checked?)"
                 ;;
               3)
-                die "Target exists but is not a link (but we shouldn't be here since we already checked?)"
+                die "Target exists but is not a link (but we shouldn't be here since we already checked?) [pull_src_dest_skiplevel_noln]"
                 ;;
               *)
                 die "Unexpected return value from is_link_match"

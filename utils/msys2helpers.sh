@@ -32,11 +32,11 @@ win_env_ensure_value() {
   local -n winenv_ref="$3"
   local current="${winenv_ref[$key]}"
   if [[ "$current" != "$value" ]]; then
-    warn "Setting Windows env var $key='$value' (was '$current')"
-    setx "$key" "$value" 2>&1 >/dev/null || die "Failed to set Windows env var $key='$value'"
+    warn "Setting Windows env var $key='$(path_echo $value)' (was '$(path_echo $current)')"
+    setx "$key" "$value" 2>&1 >/dev/null || die "Failed to set Windows env var $key='$(path_echo $value)'"
     return 1
   else
-    debug "$BASH_SOURCE" "$LINENO" "Windows env var already $key='$value'"
+    debug "$BASH_SOURCE" "$LINENO" "Windows env var already $key='$(path_echo $value)'"
     return 0
   fi
 }
@@ -81,10 +81,10 @@ win_reg_ensure_value() {
   win_reg_get_value result "$key" "$value" || needupdate=1
   local matchtype="${type:-REG_SZ}"
   if [[ $needupdate -eq 1 || "${result[2]}" != "$matchtype" || "${result[3]}" != "$data" ]]; then
-    warn "Upserting reg $key :: $value type=$type data=$data"
-    win_reg_set_value "$key" "$value" "$type" "$data" || die "Failed to set reg $key :: $value type=$type data=$data"
+    warn "Upserting reg $(path_echo $key) :: $value type=$type data=$(path_echo $data)"
+    win_reg_set_value "$key" "$value" "$type" "$data" || die "Failed to set reg $(path_echo $key) :: $value type=$type data=$(path_echo $data)"
     return 1
   else
-    debug "$BASH_SOURCE" "$LINENO" "No reg change needed: $key :: $value type=$type data=$data"
+    debug "$BASH_SOURCE" "$LINENO" "No reg change needed: $(path_echo $key) :: $value type=$type data=$(path_echo $data)"
   fi
 }

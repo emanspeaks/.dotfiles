@@ -30,6 +30,7 @@ DKYELLOW
 DKYELLOWBG
 DOTCFGDIR
 dotfiles
+dotlntest
 DOTUTILS
 effcwd
 envlines

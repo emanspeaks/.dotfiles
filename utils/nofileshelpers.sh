@@ -38,6 +38,7 @@ add_pkg_array_to_norecurse_map() {
   local pkg=$1
   local pkgidx=$((NORECURSE_LAST_IDX + 1))
   local array_name="norecurse_array_$pkgidx"
+  debug "$BASH_SOURCE" "$LINENO" "Adding norecurse map pkg=$pkg array_name=$array_name pkgidx=$pkgidx"
   NORECURSE_LAST_IDX=$pkgidx
   NORECURSE_PKG2IDX[$pkg]=$pkgidx
   eval "declare -ga $array_name=()"
@@ -59,6 +60,7 @@ get_pkgdir_norecurse() {
   local pkgdir="$1"
   local pkg=$(pkgdir_to_name "$pkgdir")
   local -n norecurse_array_ref
+  debug "$BASH_SOURCE" "$LINENO" "Getting norecurse for pkgdir=$pkgdir pkg=$pkg"
   norecurse_array_ref=$(get_pkg_norecurse_arrayname "$pkg")
   if [ $? -ne 0 ]; then
     local norecursefile="$pkgdir/norecurse"

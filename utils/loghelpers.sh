@@ -87,3 +87,8 @@ die() {
   critical "$@"
   exit 1
 }
+
+path_echo () {
+  local path="$@"
+  echo ${path//\\/\\\\}
+}

@@ -81,7 +81,28 @@ try_set_link() {
       fi
       ;;
     3)
-      die "Target exists but is not a link (but we shouldn't be here since we already checked?)"
+      error "Target $dest exists but is not a link. Would you like to diff?"
+      read -p "(y/n) " yn
+      case $yn in
+        [Yy]* )
+          diff -u "$dest" "$src"
+          info "After reviewing the diff, would you like to replace $dest with a link to $src?"
+          read -p "(y/n) " yn2
+          case $yn2 in
+            [Yy]* )
+              debug "$BASH_SOURCE" "$LINENO" "${INVERT}Replacing file $dest with link to $src${NOINVERT}"
+              rm "$dest" || die "Failed to remove existing file $dest"
+              safe_link "$src" "$dest"
+              return 1
+              ;;
+            *)
+              die "Cannot proceed with existing conflicting file.  Please resolve the conflict at $dest manually and try again."
+          esac
+          ;;
+        *)
+          die "Cannot proceed with existing conflicting file.  Please resolve the conflict at $dest manually and try again."
+          ;;
+      esac
       ;;
     *)
       die "Unexpected return value from is_link_match"

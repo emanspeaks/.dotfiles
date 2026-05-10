@@ -5,9 +5,9 @@ pkg_name_to_pkgdir() {
 abs_path_cwd() {
   local effcwd="$2"
   if [ -n "$effcwd" ]; then
-    realpath --relative-to="$effcwd" "$1" 2>/dev/null
+    realpath -s --relative-to="$effcwd" "$1" 2>/dev/null
   else
-    realpath "$1" 2>/dev/null
+    realpath -s "$1" 2>/dev/null
   fi
 }
 
