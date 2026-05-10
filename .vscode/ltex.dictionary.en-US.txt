@@ -1,9 +1,11 @@
+Atkynson
 avault
 barebones
 bashsrc
 BLACKBG
 BLUEBG
 cdgit
+cloc
 cpath
 ctest
 ctty

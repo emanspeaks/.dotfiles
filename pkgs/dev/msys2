@@ -12,10 +12,8 @@
 # repository::name - means repository/name (the name part gets translated as above)
 
 base-devel:
-man:
-rsync:
-unzip:
-neovim:u
 python:u
-#cmake:u
-#gcc:u
+cmake:u
+gcc:u
+cloc:
+scc:u
