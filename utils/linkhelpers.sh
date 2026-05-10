@@ -7,7 +7,7 @@ is_link_match() {
     local bashsrc="$1"
     local linenum="$2"
     shift 2
-    [ $raise -eq 1 ] && die "$@" || debug "$bashsrc" "$linenum" "$@"
+    [[ "$raise" -eq 1 ]] && die "$@" || debug "$bashsrc" "$linenum" "$@"
   }
 
   if [ ! -e "$dest" ]; then

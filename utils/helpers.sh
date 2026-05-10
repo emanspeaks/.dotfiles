@@ -9,3 +9,4 @@
 . "$DOTUTILS/machhelpers.sh"
 . "$DOTUTILS/pullhelpers.sh"
 . "$DOTUTILS/drophelpers.sh"
+. "$DOTUTILS/msys2helpers.sh"

@@ -4,7 +4,8 @@ settitle ()
 }
 
 export UCRT64_PACKAGE_PREFIX="mingw-w64-ucrt-x86_64"
-export PATH="$HOME/.local/bin:$HOME/bin:$(cygpath -u $USERPROFILE/.local/bin):$PATH"
+export CYGPATH_USERPROFILE=$(cygpath -ua "$USERPROFILE")
+export PATH="$HOME/.local/bin:$HOME/bin:$CYGPATH_USERPROFILE/.local/bin:$PATH"
 export MSYS=winsymlinks:nativestrict
 
 alias nvim=/ucrt64/bin/nvim

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-DOTFILES=$(dot-whereami)
+DOTFILES="${DOTFILES:-$(dot-whereami)}"
 . "$DOTFILES/utils/common.sh"
 
 newpkg=

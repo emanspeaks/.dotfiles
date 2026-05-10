@@ -121,10 +121,32 @@ pull_src_dest_skiplevel_noln() {
   done
 }
 
+msys2_pkg_install() {
+  local pkgdir="$1"
+  local msys2file="$pkgdir/msys2"
+  if [ -f "$msys2file" ]; then
+    msys2pkgs=$(parse_pattern_file "$msys2file")
+    if [ -z "$msys2pkgs" ]; then
+      warn "No MSYS2 packages found in $msys2file"
+      return 1
+    fi
+    pkg_info "* Installing MSYS2 packages for $msys2file:"
+    for line in $msys2pkgs; do
+      pkg_info "  * $line"
+    done
+    pacboy -S --noconfirm --needed $msys2pkgs || die "Failed to install MSYS2 packages"
+    echo
+  fi
+}
+
 pull_pkg() {
   local pkg="$1"
   local pkgdir="$DOTPKGDIR/$pkg"
+  echo
   pkg_info "${INVERT}$pkg ($pkgdir)${NOINVERT}"
+
+  msys2_pkg_install "$pkgdir"
+
   local pull_home_noln=()
   local pull_root_noln=()
   local pull_userprofile_noln=()
@@ -132,16 +154,20 @@ pull_pkg() {
 
   if [ -d "$pkgdir/home" ]; then
     pkg_info "* Pulling home for package $pkg"
+    [ -f "$pkgdir/pre-home.sh" ] && . "$pkgdir/pre-home.sh"
     pull_src_dest_skiplevel_noln "$pkgdir/home" ~ 0 "${HOME_NOLN[@]}" "${pull_home_noln[@]}"
   fi
 
   if [ -d "$pkgdir/root" ]; then
     pkg_info "* Pulling root for package $pkg"
+    [ -f "$pkgdir/pre-root.sh" ] && . "$pkgdir/pre-root.sh"
     pull_src_dest_skiplevel_noln "$pkgdir/root" "" 1 "${ROOT_NOLN[@]}" "${pull_root_noln[@]}"
   fi
 
   if [ -d "$pkgdir/userprofile" -a -d "$USERPROFILE" ]; then
     pkg_info "* Pulling userprofile for package $pkg"
-    pull_src_dest_skiplevel_noln "$pkgdir/userprofile" "$(cygpath -ua "$USERPROFILE")" 0 "${USERPROFILE_NOLN[@]}" "${pull_userprofile_noln[@]}"
+    CYGPATH_USERPROFILE=$(cygpath -ua "$USERPROFILE")
+    [ -f "$pkgdir/pre-userprofile.sh" ] && . "$pkgdir/pre-userprofile.sh"
+    pull_src_dest_skiplevel_noln "$pkgdir/userprofile" "$CYGPATH_USERPROFILE" 0 "${USERPROFILE_NOLN[@]}" "${pull_userprofile_noln[@]}"
   fi
 }

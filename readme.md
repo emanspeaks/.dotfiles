@@ -12,6 +12,7 @@ In order to use this on Windows, the following conditions must be true:
   * While the Git package in the MSYS2 pacman is [now maintained by the Git For Windows team](https://gitforwindows.org/install-inside-msys2-proper), the native Windows install provides better integration with tools outside MSYS2 as well in a more complete way.  You should just install Git for Windows before you install MSYS2.
 * Install [MSYS2](https://www.msys2.org/)
 * [Developer Mode is enabled](https://www.msys2.org/docs/symlinks/#native-windows-symlinks)
+* [Windows Sudo is enabled](https://learn.microsoft.com/en-us/windows/advanced-settings/sudo/?wt.mc_id=windows_inproduct_sudo) and set to `Inline` mode
 
 ## Usage
 

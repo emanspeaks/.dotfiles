@@ -15,12 +15,17 @@
 # export DOTFILES=${DOTFILES:-$(cd "$(dirname "$(readlink -f "$SCRIPT_PATH")")" && pwd)}
 # echo DOTFILES=$DOTFILES
 
-export DOTFILES=$(dot-whereami)
+export DOTFILES="${DOTFILES:-$(dot-whereami)}"
 
+export MSYS2_PATH_TYPE=inherit
 export MSYS=winsymlinks:nativestrict
+
 export DOTCFGDIR=~/.config/dotfiles
 export DOTMACHFILE=$DOTCFGDIR/machine
 export DOTMACHDIR="$DOTFILES/machines"
 export DOTPKGDIR="$DOTFILES/pkgs"
 export SECRETSDIR="$DOTFILES/secrets"
-. "$SECRETSDIR/ansible-env.sh"
+
+if command -v python3 >/dev/null 2>&1; then
+  . "$SECRETSDIR/ansible-env.sh"
+fi

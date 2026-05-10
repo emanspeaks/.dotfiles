@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-DOTFILES=$(dot-whereami)
+DOTFILES="${DOTFILES:-$(dot-whereami)}"
 . "$DOTFILES/utils/common.sh"
 
 inputpkgs=
@@ -30,7 +30,7 @@ else
   readarray -t pkgs < <(echo "$filepkgs")
 fi
 
-update=0
+pulled=0
 failed=0
 dropped=0
 for pkg in "${pkgs[@]}"; do
@@ -50,7 +50,7 @@ for pkg in "${pkgs[@]}"; do
         warn "Failed to drop package $pkg. Continuing with next package."
       fi
     elif pull_pkg "$pkg" 0; then
-      (( update++ ));
+      (( pulled++ ));
     else
       (( failed++ ))
       warn "Failed to pull package $pkg. Continuing with next package."
@@ -60,19 +60,36 @@ for pkg in "${pkgs[@]}"; do
   fi
 done
 
-if [ $update -gt 0 ]; then
+echo
+if [ $pulled -gt 0 ]; then
   if [ $failed -gt 0 ]; then
-    warn "$failed packages failed to update"
+    warn "$failed packages failed to pull"
   fi
-  success "$update Dotfiles packages updated"
+  success "$pulled Dotfiles packages pulled"
   if [ $dropped -gt 0 ]; then
     success "$dropped Dotfiles packages dropped"
   fi
 elif [ $dropped -gt 0 ]; then
   success "All specified packages ($dropped) dropped"
 elif [ $failed -gt 0 ]; then
-  error "All specified packages ($failed) failed to update"
+  error "All specified packages ($failed) failed to pull"
 else
-  warn "No packages were updated"
+  warn "No packages were pulled"
+fi
+echo
+if [ $failed -eq 0 ]; then
+  rcscript=
+  ppcmdline=$(tr -d '\0' < /proc/$PPID/cmdline)
+  case "$ppcmdline" in
+    *bash*) rcscript='~/.bashrc' ;;
+    *zsh*) rcscript='~/.zshrc' ;;
+  esac
+  if [ -n "$rcscript" ]; then
+    success "Don't forget to run \`. $rcscript\` to apply any changes to your current shell session"
+  else
+    warn "Unknown parent shell. \`cat /proc/$PPID/cmdline\`='$ppcmdline'"
+  fi
+else
+  error "Dotfiles pull completed with $failed failures.  You should investigate before refreshing your shell session."
 fi
 exit $failed

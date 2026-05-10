@@ -1,6 +1,6 @@
 parse_pattern_file() {
   local path="$1"
-  [ -f "$path" ] && (cat "$path" | sed 's/^[[:space:]]*//;s/#[[:print:]]*$//;s/[[:space:]]*$//' | sort -u)
+  [ -f "$path" ] && (cat "$path" | sed 's/^[[:space:]]*//;s/#[[:print:]]*$//;s/[[:space:]]*$//' | grep . | sort -u)
 }
 
 parse_pattern_file_linesref() {
