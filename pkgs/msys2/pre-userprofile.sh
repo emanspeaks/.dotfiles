@@ -20,6 +20,7 @@ win_reg_ensure_value 'HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersio
 if [[ $reg_changes -gt 0 ]]; then
   info "Some registry changes were made that may require restarting explorer.exe to take effect."
   read -p "Do you want to restart explorer.exe now? [Y/n] " -n 1 yn
+  echo
   if [[ $yn =~ ^[Yy]$ || -z "$yn" ]]; then
     warn "Restarting explorer.exe"
     taskkill //f //im explorer.exe

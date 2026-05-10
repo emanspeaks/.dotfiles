@@ -3,6 +3,7 @@ HOME_NOLN=(
   ".config/"
   ".bashrc.d/"
   ".local/templates/"
+  ".local/bin/"
 )
 
 USERPROFILE_NOLN=(

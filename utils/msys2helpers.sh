@@ -25,7 +25,7 @@ win_reg_get_value() {
   local regout
   resultref=()  # clear resultref in case reg query fails
   # do not quote vars here; will cause syntax error in reg query
-  regout=$(reg query $key $valflag $value) || return 1
+  regout=$(reg query $key $valflag $value 2>/dev/null) || return 1
   resultref=($(tr -d '\r' <<< "$regout"))
 }
 
@@ -38,10 +38,11 @@ win_reg_set_value() {
   local typeflag
   local dataflag
   [ -z "$value" ] && valflag='//ve' || valflag='//v'
-  [ -z "$type" ] || typeflag="/t $type"
-  [ -z "$data" ] || dataflag="/d $data"
+  [ -z "$type" ] || typeflag='//t'
+  [ -z "$data" ] || dataflag='//d'
   # do not quote vars here; will cause syntax error in reg add
-  reg add $key /f $valflag $value $typeflag $type $dataflag $data || return 1
+  echo reg add $key //f $valflag $value $typeflag $type $dataflag $data
+  reg add $key //f $valflag $value $typeflag $type $dataflag $data 2>&1 >/dev/null || return 1
 }
 
 win_reg_ensure_value() {
