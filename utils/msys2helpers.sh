@@ -41,7 +41,7 @@ win_reg_set_value() {
   [ -z "$type" ] || typeflag='//t'
   [ -z "$data" ] || dataflag='//d'
   # do not quote vars here; will cause syntax error in reg add
-  echo reg add $key //f $valflag $value $typeflag $type $dataflag $data
+  # echo reg add $key //f $valflag $value $typeflag $type $dataflag $data
   reg add $key //f $valflag $value $typeflag $type $dataflag $data 2>&1 >/dev/null || return 1
 }
 
