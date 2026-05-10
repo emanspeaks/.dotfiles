@@ -37,6 +37,7 @@ filepkgs
 filesystem
 filtnoln
 FrontEndMasters
+fsutil
 fullnolnref
 gitignored
 GREENBG

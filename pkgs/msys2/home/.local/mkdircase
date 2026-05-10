@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+die() {
+  echo -e "${RED}Error: $*${NC}" >&2
+  exit 1
+}
+[ -d "$1" ] || mkdir -p "$1"
+if [ -n "$(find -L "$1" -mindepth 1 -print -quit)" ]; then
+  die "Directory $1 is not empty, cannot set case-sensitive flag"
+fi
+sudo fsutil file setCaseSensitiveInfo "$1" enable || {
+  die "Failed to set case-sensitive flag on $1"
+}
