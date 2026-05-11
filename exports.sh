@@ -27,5 +27,5 @@ export DOTPKGDIR="$DOTFILES/pkgs"
 export SECRETSDIR="$DOTFILES/secrets"
 
 if command -v python3 >/dev/null 2>&1; then
-  . "$SECRETSDIR/ansible-env.sh"
+  [ -f "$SECRETSDIR/ansible-env.sh" ] && . "$SECRETSDIR/ansible-env.sh"
 fi
