@@ -1,4 +1,4 @@
-MACHINEPKG=base-machine
+MACHINEPKG=03-base-machine
 
 get_machine_name() {
   [ -L "$DOTMACHFILE" ] || return 1
@@ -24,4 +24,15 @@ try_link_machine_pkgdir() {
 init_machine_base_pkgdir() {
   [[ -L "$(pkg_name_to_pkgdir "$MACHINEPKG")" ]] && return 0
   try_link_machine_pkgdir
+}
+
+which_os() {
+  os=$(uname -s)
+  case "$os" in
+    Darwin)               os_name="darwin" ;;
+    Linux)                os_name="linux" ;;
+    MINGW*|MSYS*|CYGWIN*) os_name="windows" ;;
+    *)                    die "unsupported OS: $os" ;;
+  esac
+  echo "$os_name"
 }

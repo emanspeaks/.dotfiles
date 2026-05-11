@@ -1,8 +1,8 @@
-base
-base-machine
+01-base
+03-base-machine
 bash
 vscode
-msys2
+00-msys2
 nvim
 wezterm
 git
@@ -10,6 +10,6 @@ git
 #claude
 #pycountdown
 opencode
-windows
+04-windows
 webdev
-secrets
+02-secrets

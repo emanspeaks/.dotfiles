@@ -56,8 +56,19 @@ touch "$repomachfile"
 init_machine_base_pkgdir
 
 if [ ! -s "$DOTMACHFILE" ]; then
-  echo "base" >> "$DOTMACHFILE"
+  echo "01-base" >> "$DOTMACHFILE"
   echo "$MACHINEPKG" >> "$DOTMACHFILE"
+  if [ "$(which_os)" == "windows" ]; then
+    echo "00-msys2" >> "$DOTMACHFILE"
+    echo "04-windows" >> "$DOTMACHFILE"
+  fi
+  if [ -f "$SECRETSDIR/decrypt.sh" ]; then
+    echo "02-secrets" >> "$DOTMACHFILE"
+  fi
+
+  # let's assume you want bash and neovim as starting defaults
+  echo "bash" >> "$DOTMACHFILE"
+  echo "nvim" >> "$DOTMACHFILE"
 fi
 
 read -p "Ready to pull, press Enter to continue..." DUMMY
