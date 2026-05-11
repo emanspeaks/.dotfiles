@@ -12,4 +12,4 @@
 # repository::name - means repository/name (the name part gets translated as above)
 
 hugo:u
-nodejs:u
+#nodejs:u
