@@ -4,6 +4,9 @@ HOME_NOLN=(
   ".bashrc.d/"
   ".local/templates/"
   ".local/bin/"
+  ".ssh/"
+  ".ssh/known_hosts"
+  ".ssh/known_hosts.old"
 )
 
 USERPROFILE_NOLN=(
