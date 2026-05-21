@@ -17,7 +17,7 @@
 
 export DOTFILES="${DOTFILES:-$(dot-whereami)}"
 
-export MSYS2_PATH_TYPE=inherit
+# export MSYS2_PATH_TYPE=inherit
 export MSYS=winsymlinks:nativestrict
 
 export DOTCFGDIR=~/.config/dotfiles

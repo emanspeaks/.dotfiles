@@ -24,6 +24,6 @@ if [[ $reg_changes -gt 0 ]]; then
   if [[ $yn =~ ^[Yy]$ || -z "$yn" ]]; then
     warn "Restarting explorer.exe"
     taskkill //f //im explorer.exe
-    start explorer.exe
+    cmd //i //c "start explorer.exe"
   fi
 fi

@@ -1,10 +1,16 @@
 {
-  "base_path": "~/pycountdown",
+  "local_home": "~/pycountdown",
+  // "fds_pycountdown": "${fds_userhome}/pycountdown",
+  // "local_config_file": "${fds_pycountdown}/local_config.jsonc",
+  "base_path": "${local_home}",
+  "local_config_file": "${local_home}/local_config.jsonc",
+  // "log_dir": "${local_home}/logs",
+  // "base_path": "~/pycountdown",
   "cli_log_level": "info",
   "file_log_level": "debug",
   // "file_log_level": "debuglow",
   // "file_log_level": "debuglow2",
-  "log_timestamp_name": false,
+  "log_timestamp_name": true,
   // "append_log": true,
   "tmp_dir": "tmp"
   // "log_trace_enabled": true,

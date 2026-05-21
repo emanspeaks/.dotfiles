@@ -13,6 +13,7 @@ In order to use this on Windows, the following conditions must be true:
 * Install [MSYS2](https://www.msys2.org/)
 * [Developer Mode is enabled](https://www.msys2.org/docs/symlinks/#native-windows-symlinks)
 * [Windows Sudo is enabled](https://learn.microsoft.com/en-us/windows/advanced-settings/sudo/?wt.mc_id=windows_inproduct_sudo) and set to `Inline` mode
+  * Alternatively, install [gsudo](https://github.com/gerardog/gsudo), likely as a portable install, and ensure it is on the PATH
 
 ## Usage
 

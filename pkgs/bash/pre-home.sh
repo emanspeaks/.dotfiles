@@ -19,6 +19,8 @@ for file in "${checkfiles[@]}"; do
 done
 if [ $fixfiles -eq 1 ]; then
   for file in "${checkfiles[@]}"; do
-    rm -v "$file" || die "Failed to remove existing file $file"
+    if [ -f "$file" ]; then
+      rm -v "$file" || die "Failed to remove existing file $file"
+    fi
   done
 fi

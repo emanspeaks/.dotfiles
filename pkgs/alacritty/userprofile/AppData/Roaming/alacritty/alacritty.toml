@@ -1,0 +1,51 @@
+[font]
+size = 10
+normal = { family = "CommitMono Nerd Font Mono", style = "Regular" }
+offset.x = 1  # For letter spacing (default: 0)
+offset.y = 0  # For line spacing (default: 0)
+
+[bell]
+duration = 300
+
+[terminal]
+shell = { program = "C:\\msys64\\msys2_shell.cmd", args = ["-defterm", "-no-start", "-ucrt64", ] }
+
+[mouse]
+bindings = [
+  { mouse = "Right", mods = "Control", action = "Paste" },
+]
+
+# https://github.com/mbadolato/iTerm2-Color-Schemes/blob/master/alacritty/Material%20Dark.toml
+# Colors (Material Dark)
+
+[colors.bright]
+black = '#4f4f4f'
+blue = '#54a4f3'
+cyan = '#26bbd1'
+green = '#7aba3a'
+magenta = '#aa4dbc'
+red = '#e83b3f'
+white = '#d9d9d9'
+yellow = '#ffea2e'
+
+[colors.cursor]
+cursor = '#16afca'
+text = '#dfdfdf'
+
+[colors.normal]
+black = '#212121'
+blue = '#134eb2'
+cyan = '#0e717c'
+green = '#457b24'
+magenta = '#701aa2'
+red = '#b7141f'
+white = '#efefef'
+yellow = '#f6981e'
+
+[colors.primary]
+background = '#232322'
+foreground = '#e5e5e5'
+
+[colors.selection]
+background = '#dfdfdf'
+text = '#3d3d3d'
