@@ -1,0 +1,14 @@
+# list packages needed for MSYS2
+#
+# name   - uses the package prefix of the current environment: mingw-w64-ucrt-x86_64-name
+# name:i - translates to mingw-w64-i686-name
+# name:x - translates to mingw-w64-x86_64-name
+# name:z - translates to mingw-w64-clang-i686-name
+# name:c - translates to mingw-w64-clang-x86_64-name
+# name:u - translates to mingw-w64-ucrt-x86_64-name
+# name:a - translates to mingw-w64-clang-aarch64-name
+# name:p - means the same as "name"
+# name:  - disables any translation for name
+# repository::name - means repository/name (the name part gets translated as above)
+
+pixi:u

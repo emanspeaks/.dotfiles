@@ -8,9 +8,13 @@
 		"claudeCode.allowDangerouslySkipPermissions": true,
 		"files.exclude": {
 			"**/node_modules/**": true,
+			"pkgs/04-windows/home/git/**": true,
+			"pkgs/04-windows/userprofile/git/**": true,
 		},
 		"files.watcherExclude": {
-			"**/node_modules/**": true
+			"**/node_modules/**": true,
+			"pkgs/04-windows/home/git/**": true,
+			"pkgs/04-windows/userprofile/git/**": true,
 		},
     "files.associations": {
       "VERSION": "plaintext",
