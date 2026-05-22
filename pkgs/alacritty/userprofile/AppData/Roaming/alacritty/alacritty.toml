@@ -12,8 +12,12 @@ shell = { program = "C:\\msys64\\msys2_shell.cmd", args = ["-defterm", "-no-star
 
 [mouse]
 bindings = [
-  { mouse = "Right", mods = "Control", action = "Paste" },
+  # { mouse = "Right", mods = "Control", action = "Paste" },
+  { mouse = "Right", action = "Paste" },
 ]
+
+[selection]
+save_to_clipboard = true
 
 # https://github.com/mbadolato/iTerm2-Color-Schemes/blob/master/alacritty/Material%20Dark.toml
 # Colors (Material Dark)

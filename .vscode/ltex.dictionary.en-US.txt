@@ -96,6 +96,7 @@ recursing
 REDBG
 repomachfile
 rmcrypt
+Schniz
 setx
 srcchk
 srclen
