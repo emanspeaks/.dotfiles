@@ -91,6 +91,7 @@ ppath
 ppcmdline
 prel
 ptest
+pyproject
 rcscript
 recursing
 REDBG

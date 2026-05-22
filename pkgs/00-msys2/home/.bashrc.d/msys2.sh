@@ -29,3 +29,19 @@ export PS1
 
 alias scr="cd /c/scratch"
 alias cdgit="cd /c/scratch/git"
+
+command_not_found_handle() {
+  local raw_cmd="$*"
+  # Check if the failed command starts with a drive letter 'C'
+  if [[ "$1" =~ ^[Cc]: ]]; then
+    # 1. Take the whole line
+    # 2. Use cygpath to fix the paths
+    # 3. Re-run it
+    local fixed_cmd=$(echo "$raw_cmd" | sed 's/\\/\//g' | sed -E 's/([A-Z]):\//\/\L\1\//g')
+    eval "$fixed_cmd"
+    return $?
+  fi
+
+  echo "bash: $1: command not found"
+  return 127
+}
