@@ -51,6 +51,8 @@ alias egrep='egrep --color=auto'              # show differences in colour
 alias fgrep='fgrep --color=auto'              # show differences in colour
 alias ls='ls -hF --color=tty'                 # classify files in colour
 alias ll="ls -al"
+alias envs='env | sort'
+alias bashrc='. ~/.bashrc'
 
 # User specific aliases and functions
 if [ -d ~/.bashrc.d ]; then
