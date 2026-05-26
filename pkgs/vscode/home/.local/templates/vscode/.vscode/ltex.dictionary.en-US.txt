@@ -1,2 +1,3 @@
+DIRENV
 gofmt
 pyproject

@@ -14,6 +14,16 @@ if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
 fi
 export PATH
 
+add_prompt_cmd() {
+  if [[ ";${PROMPT_COMMAND[*]:-};" != *";$1;"* ]]; then
+    if [[ "$(declare -p PROMPT_COMMAND 2>&1)" == "declare -a"* ]]; then
+      export PROMPT_COMMAND=("$1" "${PROMPT_COMMAND[@]}")
+    else
+      export PROMPT_COMMAND="$1${PROMPT_COMMAND:+;$PROMPT_COMMAND}"
+    fi
+  fi
+}
+
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
 
@@ -30,7 +40,7 @@ export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls:ll' # Ignore the ls command as well
 # Append history immediately rather than waiting for session exit
 shopt -s histappend
 # Before every prompt, save current session history and reload entire file
-export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+add_prompt_cmd 'history -a; history -c; history -r'
 
 umask 002
 
