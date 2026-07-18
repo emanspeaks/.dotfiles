@@ -1,1 +1,20 @@
 #!/usr/bin/env bash
+
+#unalias -a
+#echo DIRENV_ALIAS="$DIRENV_ALIAS"
+eval "$DIRENV_ALIAS"
+
+export_aliases() {
+  export DIRENV_ALIAS="$(declare -p BASH_ALIASES)"
+  #echo DIRENV_ALIAS="$DIRENV_ALIAS"
+}
+
+alias_set() {
+  BASH_ALIASES["$1"]="$2"
+  export_aliases
+}
+
+alias_rm() {
+  unset BASH_ALIASES["$1"]
+  export_aliases
+}

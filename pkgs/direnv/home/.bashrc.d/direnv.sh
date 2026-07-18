@@ -13,9 +13,19 @@ _direnv_hook() {
   export _DIRENV_LAST_PS1="$PS1"
   export _DIRENV_LAST_PATH="$PATH"
   export DIRENV_PS1="$PS1"
+
+  export DIRENV_ALIAS="$(declare -p BASH_ALIASES)"
+  #echo $DIRENV_ALIAS
+
   eval "$("$_DIRENV_PATH" export bash)";
+
   [[ "$PATH" != "$_DIRENV_LAST_PATH" ]] && export PATH="$(echo $PATH | /usr/bin/sed -E 's/C:/\/c/g' | /usr/bin/sed -E 's/\\/\//g' | /usr/bin/sed -E 's/;/:/g')"
   [[ "$DIRENV_PS1" != "$_DIRENV_LAST_PS1" ]] && export PS1="${DIRENV_PS1}"
+
+  unalias -a
+  #echo $DIRENV_ALIAS
+  eval "$(echo "$DIRENV_ALIAS" | sed 's/^declare -A/declare -gA/')"
+
   trap - SIGINT;
   return $previous_exit_status;
 };
