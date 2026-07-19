@@ -13,3 +13,4 @@ dev
 02-secrets
 04-windows
 direnv
+zig
