@@ -11,11 +11,17 @@
     }
   },
   "effortLevel": "high",
+  "tui": "fullscreen",
   "showThinkingSummaries": true,
   "old_statusLine": {
     "type": "command",
     "command": "npx -y ccusage statusline --visual-burn-rate emoji",
     "padding": 0
   },
-  "tui": "fullscreen"
+  "agentPushNotifEnabled": true,
+  "inputNeededNotifEnabled": true,
+  "remoteControlAtStartup": false,
+  "env": {
+    "CLAUDE_CODE_ENABLE_TODO_TOOLS": "1"
+  }
 }

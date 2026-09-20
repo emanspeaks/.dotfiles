@@ -17,3 +17,6 @@ cmake:u
 gcc:u
 cloc:
 scc:u
+qemu:u
+gdb:u
+gdb-multiarch:u
